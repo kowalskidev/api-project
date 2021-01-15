@@ -2,7 +2,10 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
+require("dotenv").config();
+const got = require("got");
 
+console.log(process.env.PORT);
 // parse request bodies (req.body)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
