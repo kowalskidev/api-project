@@ -31,8 +31,6 @@ const storage = multer.diskStorage({
 });
 
 app.get("/", (req, res) => {
-  const str = "hello";
-  console.log(`${str + "world"}`);
   res.render("index");
 });
 
@@ -56,7 +54,6 @@ app.post("/upload", (req, res) => {
     } else if (err) {
       return res.send(err);
     }
-    console.log(req.file);
     // Display uploaded image for user validation
     res.render("image", { filename: req.file.filename });
   });
@@ -64,8 +61,13 @@ app.post("/upload", (req, res) => {
 
 app.get("/analyzeImage/:filename", (req, res) => {
   const filePath = `public/img/uploads/${req.params.filename}`;
+  const _filePath = fs.createReadStream(filePath);
+  _filePath.on("error", (err) => {
+    res.status(404).send("Opps : Something went wrong!");
+    console.error(err);
+  });
   const formData = new FormData();
-  formData.append("image", fs.createReadStream(filePath));
+  formData.append("image", _filePath);
   formData.append("limit", 3);
   const url_categorizer =
     "https://api.imagga.com/v2/categories/personal_photos";
@@ -78,16 +80,19 @@ app.get("/analyzeImage/:filename", (req, res) => {
         username: process.env.Wit_API_Key,
         password: process.env.Wit_API_Secret,
       });
-      const data = JSON.parse(response.body);
-      const tag = data.result.tags;
-      tags = tag.map((tag) => {
-        return tag.tag.en;
-      });
-      console.log(tags);
-      res.redirect(`/gallery/${tags[0]}`);
+      if (response.body) {
+        const data = JSON.parse(response.body);
+        const _tags = data.result.tags;
+        tags = _tags.map((tag) => {
+          return tag.tag.en;
+        });
+        res.redirect(`/gallery/${tags[0]}`);
+      } else {
+        res.status(404).send("Opps : Something went wrong!");
+      }
     } catch (error) {
       console.log(error.response.body);
-      res.send(error.response.body);
+      res.status(404).send(error.response.body);
     }
   })();
 });
@@ -98,30 +103,39 @@ app.get("/gallery/:tag", (req, res) => {
   (async () => {
     try {
       const response = await got(`${unsplash_url + req.params.tag}`);
-      const responseJSON = JSON.parse(response.body);
-      const data = responseJSON.results;
-      let images = data.map((obj) => {
-        return {
-          regular: obj.urls.regular,
-          thumb: obj.urls.thumb,
-          tags: obj.tags,
-        };
-      });
-      console.log(images);
-      res.render("gallery", {
-        images: images,
-      });
+      if (response.body) {
+        const responseJSON = JSON.parse(response.body);
+        const data = responseJSON.results;
+        let images = data.map((obj) => {
+          return {
+            regular: obj.urls.regular,
+            thumb: obj.urls.thumb,
+            tags: obj.tags,
+          };
+        });
+        res.render("gallery", {
+          tags: tags,
+          images: images,
+        });
+      } else {
+        res.status(404).send("Opps : Something went wrong!");
+      }
     } catch (error) {
       console.log(error.response.body);
       res.send(error.response.body);
     }
   })();
 });
+
 app.get("/analyzeColors/:filename", (req, res) => {
-  console.log(req.params.filename);
   const filePath = `public/img/uploads/${req.params.filename}`;
+  const _filePath = fs.createReadStream(filePath);
+  _filePath.on("error", (err) => {
+    res.status(404).send("Opps : Something went wrong!");
+    console.error(err);
+  });
   const formData = new FormData();
-  formData.append("image", fs.createReadStream(filePath));
+  formData.append("image", _filePath);
   // formData.append("limit", 3);
 
   const url_colors = "https://api.imagga.com/v2/colors";
@@ -133,8 +147,21 @@ app.get("/analyzeColors/:filename", (req, res) => {
         username: process.env.Wit_API_Key,
         password: process.env.Wit_API_Secret,
       });
-      console.log(response.body);
-      res.send(response.body);
+
+      if (response.body) {
+        const data = JSON.parse(response.body);
+        const background_colors = data.result.colors.background_colors;
+        const foreground_colors = data.result.colors.foreground_colors;
+        const image_colors = data.result.colors.image_colors;
+        res.render("colors", {
+          filename: req.params.filename,
+          background_colors: background_colors,
+          foreground_colors: foreground_colors,
+          image_colors: image_colors,
+        });
+      } else {
+        res.status(404).send("Opps : Something went wrong!");
+      }
     } catch (error) {
       console.log(error.response.body);
       res.send(error.response.body);

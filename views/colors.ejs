@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Project</title>
+  </head>
+  <body>
+    <img
+      src="/img/uploads/<%= filename%>"
+      alt="<%= filename%>"
+      width="500px"
+      height="500px"
+    />
+    <h1>Background Colors</h1>
+
+    <% background_colors.forEach(obj => { %>
+    <ol>
+      <li style="color: <%= obj.closest_palette_color_html_code %>">
+        Closest Palette Color: <%= obj.closest_palette_color %>
+      </li>
+      <li style="color: <%= obj.html_code %>">
+        Closest Parent Palette Color: <%= obj.closest_palette_color_parent %>
+      </li>
+    </ol>
+    <% }) %>
+
+    <h1>Foreground Colors</h1>
+
+    <% foreground_colors.forEach(obj => { %>
+    <ol>
+      <li style="color: <%= obj.closest_palette_color_html_code %>">
+        Closest Palette Color: <%= obj.closest_palette_color %>
+      </li>
+      <li style="color: <%= obj.html_code %>">
+        Closest Parent Palette Color: <%= obj.closest_palette_color_parent %>
+      </li>
+    </ol>
+    <% }) %>
+
+    <h1>Image Colors</h1>
+
+    <% image_colors.forEach(obj => { %>
+    <ol>
+      <li style="color: <%= obj.closest_palette_color_html_code %>">
+        Closest Palette Color: <%= obj.closest_palette_color %>
+      </li>
+      <li style="color: <%= obj.html_code %>">
+        Closest Parent Palette Color: <%= obj.closest_palette_color_parent %>
+      </li>
+    </ol>
+    <% }) %>
+  </body>
+</html>
