@@ -8,9 +8,14 @@
   </head>
   <body>
     <h1>Hello World!</h1>
-    <form action="/login" method="post">
-      <input type="text" name="name" id="name" />
-      <input type="submit" value="submit" />
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+      <div>
+        <label>Select your picture:</label>
+        <input type="file" name="picture" accept="image/*" />
+      </div>
+      <div>
+        <input type="submit" name="btn_upload_pic" value="Upload" />
+      </div>
     </form>
     <script src="js/main.js"></script>
   </body>
