@@ -1,30 +1,36 @@
-<!-- <%- include("partials/header.ejs") %> -->
-<h1>Tags</h1>
-<% tags.forEach(tag => { %>
-<li class="color_tags"><%= tag %></li>
-<% }); %>
-<h1>Images</h1>
-<% images.forEach(image => { %>
-<img src="<%= image.thumb %>" />
-<% }) %>
-
+<div id="gallery-container">
+  <div class="left-text">
+    <h1 class="title-h1">Tags</h1>
+    <div id="tags">
+      <% tags.forEach(tag => { %>
+      <li class="color_tags"><%= tag %></li>
+      <% }); %>
+    </div>
+    <h1 class="title-h1">Images</h1>
+  </div>
+  <div id="photos">
+    <% images.forEach(image => { %>
+    <img class="gallery-image" src="<%= image.thumb %>" />
+    <% }) %>
+  </div>
+</div>
 <script>
-  $(".color_tags").on("click", (e) => {
+  $('.color_tags').on('click', (e) => {
     e.preventDefault();
     $.ajax({
-      method: "GET",
+      method: 'GET',
       url: `/gallery/${e.target.innerHTML}`,
       beforeSend: () => {
-        $(".loader-wrapper").fadeIn("fast");
+        $('.loader-wrapper').fadeIn('fast');
       },
       success: function (data) {
-        $(".loader-wrapper").fadeOut("slow");
+        $('.loader-wrapper').fadeOut('slow');
         if (!data) {
-          $("#content").html("Opps! Something went wrong :/");
+          $('#content').html('Opps! Something went wrong :/');
         }
       },
     }).done((res) => {
-      $("#content").html(res);
+      $('#content').html(res);
     });
   });
 </script>
