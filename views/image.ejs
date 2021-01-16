@@ -1,48 +1,53 @@
 <!-- <%- include("partials/header.ejs") %> -->
-<img
-  src="/img/uploads/<%= filename%>"
-  alt="<%= filename%>"
-  width="500px"
-  height="500px"
-/>
-<button id="btn_similar_image">Get Similar Images</button>
-<button id="btn_colors">Get Image Colors</button>
+<div class="imageUploaded">
+  <img
+    src="/img/uploads/<%= filename%>"
+    alt="<%= filename%>"
+    class="uploaded-image"
+  />
+  <div class="btns-in-images">
+    <button id="btn_similar_image" class="btn-default">
+      Get Similar Images
+    </button>
+    <button id="btn_colors" class="btn-default">Get Image Colors</button>
+  </div>
+</div>
 <script>
-  $("#btn_similar_image").on("click", (e) => {
+  $('#btn_similar_image').on('click', (e) => {
     e.preventDefault();
     $.ajax({
-      method: "GET",
-      url: "/analyzeImage/<%= filename%>",
+      method: 'GET',
+      url: '/analyzeImage/<%= filename%>',
       beforeSend: () => {
-        $(".loader-wrapper").fadeIn("fast");
+        $('.loader-wrapper').fadeIn('fast');
       },
       success: function (data) {
-        $(".loader-wrapper").fadeOut("slow");
+        $('.loader-wrapper').fadeOut('slow');
         if (!data) {
-          $("#content").html("Opps! Something went wrong :/");
+          $('#content').html('Opps! Something went wrong :/');
         }
       },
     }).done((res) => {
-      $("#content").html(res);
+      $('#content').html(res);
     });
   });
 
-  $("#btn_colors").on("click", (e) => {
+  $('#btn_colors').on('click', (e) => {
     e.preventDefault();
     $.ajax({
-      method: "GET",
-      url: "/analyzeColors/<%= filename%>",
+      method: 'GET',
+      url: '/analyzeColors/<%= filename%>',
       beforeSend: () => {
-        $(".loader-wrapper").fadeIn("fast");
+        $('.loader-wrapper').fadeIn('fast');
       },
       success: function (data) {
-        $(".loader-wrapper").fadeOut("slow");
+        $('.loader-wrapper').fadeOut('slow');
         if (!data) {
-          $("#content").html("Opps! Something went wrong :/");
+          $('#content').html('Opps! Something went wrong :/');
         }
       },
     }).done((res) => {
-      $("#content").html(res);
+      $('#content').html(res);
     });
   });
 </script>

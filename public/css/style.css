@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap&family=Righteous&display=swap');
 :root {
   --blue: #1e90ff;
   --white: #ffffff;
@@ -9,30 +9,29 @@
 body {
   margin: 0;
   padding: 0;
-  max-height: 100vh;
   min-height: 100vh;
   text-align: center;
-  background-image: url("/img/background.jpeg");
+  background-image: url('/img/background.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: var(--white);
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 h1 {
   font-size: 5rem;
-  letter-spacing: 0.7em;
+  letter-spacing: 0.5em;
   margin: 0;
-  padding: 30px 0 30px 0;
+  padding: 30px;
   text-align: center;
 }
 .container {
   width: 100%;
   max-width: 680px; /* 800 */
   text-align: center;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 50px;
   background: rgba(74, 144, 226, 0.1);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -269,4 +268,50 @@ input#file {
   100% {
     height: 0%;
   }
+}
+
+/* Styling image.ejs */
+.imageUploaded {
+  width: 100%;
+  max-width: 680px; /* 800 */
+  text-align: center;
+  margin: 50px auto;
+  padding: 50px;
+  background: rgba(74, 144, 226, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.uploaded-image {
+  height: 100%;
+  width: 100%;
+  margin: 30px;
+  border: 8px solid var(--light1);
+  border-radius: 5px;
+}
+.btns-in-images {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+}
+.btn-default {
+  height: 50px;
+  width: 250px;
+  font-family: 'Righteous', cursive;
+  font-size: 1.25rem;
+  color: #333333;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.btn-default:hover {
+  transform: scale(1.15);
+  cursor: pointer;
 }
