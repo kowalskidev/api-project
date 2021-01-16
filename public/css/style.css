@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 :root {
   --blue: #1e90ff;
   --white: #ffffff;
@@ -12,12 +12,12 @@ body {
   max-height: 100vh;
   min-height: 100vh;
   text-align: center;
-  background-image: url('/img/background.jpeg');
+  background-image: url("/img/background.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: var(--white);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -164,9 +164,6 @@ h1 {
   outline: 1px dotted #000;
   outline: -webkit-focus-ring-color auto 5px;
 }
-.js .box__file + label * {
-  /* pointer-events: none; */ /* in case of FastClick lib use */
-}
 
 .no-js .box__file + label {
   display: none;
@@ -192,6 +189,9 @@ h1 {
   display: none;
 }
 
+.color_tags {
+  cursor: pointer;
+}
 input#file {
   display: inline-block;
   width: 0%;
@@ -205,4 +205,68 @@ input#file {
     center center no-repeat #e4e4e4;
   border-radius: 20px;
   background-size: 60px 60px; */
+}
+
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #242f3f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  z-index: 999;
+  flex-flow: row wrap;
+}
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 4px solid #fff;
+  animation: loader 2s infinite ease;
+}
+.loader-inner {
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  animation: loader-inner 2s infinite ease-in;
+}
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader-inner {
+  0% {
+    height: 0%;
+  }
+  25% {
+    height: 0%;
+  }
+  50% {
+    height: 100%;
+  }
+  75% {
+    height: 100%;
+  }
+  100% {
+    height: 0%;
+  }
 }

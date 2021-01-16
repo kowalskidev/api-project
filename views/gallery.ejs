@@ -1,18 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Project</title>
-  </head>
-  <body>
-    <h1>Tags</h1>
-    <% tags.forEach(tag => { %>
-    <li><a href="/gallery/<%= tag %>"><%= tag %></a></li>
-    <% }); %>
-    <h1>Images</h1>
-    <% images.forEach(image => { %>
-    <img src="<%= image.thumb %>" />
-    <% }) %>
-  </body>
-</html>
+<!-- <%- include("partials/header.ejs") %> -->
+<h1>Tags</h1>
+<% tags.forEach(tag => { %>
+<li class="color_tags"><%= tag %></li>
+<% }); %>
+<h1>Images</h1>
+<% images.forEach(image => { %>
+<img src="<%= image.thumb %>" />
+<% }) %>
+
+<script>
+  $(".color_tags").on("click", (e) => {
+    e.preventDefault();
+    $.ajax({
+      method: "GET",
+      url: `/gallery/${e.target.innerHTML}`,
+      beforeSend: () => {
+        $(".loader-wrapper").fadeIn("fast");
+      },
+      success: function (data) {
+        $(".loader-wrapper").fadeOut("slow");
+        if (!data) {
+          $("#content").html("Opps! Something went wrong :/");
+        }
+      },
+    }).done((res) => {
+      $("#content").html(res);
+    });
+  });
+</script>
+<!-- <%- include("partials/footer.ejs") %> -->

@@ -1,22 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Project</title>
-  </head>
-  <body>
-    <img
-      src="/img/uploads/<%= filename%>"
-      alt="<%= filename%>"
-      width="500px"
-      height="500px"
-    />
-    <a href="/analyzeImage/<%= filename%>"
-      ><button>Get Similar Images</button></a
-    >
-    <a href="/analyzeColors/<%= filename%>"
-      ><button>Get Image Colors</button></a
-    >
-  </body>
-</html>
+<!-- <%- include("partials/header.ejs") %> -->
+<img
+  src="/img/uploads/<%= filename%>"
+  alt="<%= filename%>"
+  width="500px"
+  height="500px"
+/>
+<button id="btn_similar_image">Get Similar Images</button>
+<button id="btn_colors">Get Image Colors</button>
+<script>
+  $("#btn_similar_image").on("click", (e) => {
+    e.preventDefault();
+    $.ajax({
+      method: "GET",
+      url: "/analyzeImage/<%= filename%>",
+      beforeSend: () => {
+        $(".loader-wrapper").fadeIn("fast");
+      },
+      success: function (data) {
+        $(".loader-wrapper").fadeOut("slow");
+        if (!data) {
+          $("#content").html("Opps! Something went wrong :/");
+        }
+      },
+    }).done((res) => {
+      $("#content").html(res);
+    });
+  });
+
+  $("#btn_colors").on("click", (e) => {
+    e.preventDefault();
+    $.ajax({
+      method: "GET",
+      url: "/analyzeColors/<%= filename%>",
+      beforeSend: () => {
+        $(".loader-wrapper").fadeIn("fast");
+      },
+      success: function (data) {
+        $(".loader-wrapper").fadeOut("slow");
+        if (!data) {
+          $("#content").html("Opps! Something went wrong :/");
+        }
+      },
+    }).done((res) => {
+      $("#content").html(res);
+    });
+  });
+</script>
+<!-- <%- include("partials/footer.ejs") %> -->
