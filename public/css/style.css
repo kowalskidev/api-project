@@ -355,23 +355,10 @@ input#file {
     border-radius: 5px;
 }
 .gallery-image:hover {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  transform: scale(1.2);
-  transition: all 0.5s;
-  cursor: pointer;
-  overflow: visible;
-=======
-=======
->>>>>>> 41cc3d6732a6549244ee723c49017c50791434f0
     transform: scale(1.2);
     transition: all 0.2s;
     cursor: pointer;
     overflow: visible;
-<<<<<<< HEAD
->>>>>>> 0e176da124ccad3d2437678c9aa7e043b506d937
-=======
->>>>>>> 41cc3d6732a6549244ee723c49017c50791434f0
 }
 .left-text {
     text-align: left;
