@@ -356,10 +356,10 @@ input#file {
   border-radius: 5px;
 }
 .gallery-image:hover {
-  transform: scale(1.2);
-  transition: all 0.5s;
-  cursor: pointer;
-  overflow: visible;
+    transform: scale(1.2);
+    transition: all 0.2s;
+    cursor: pointer;
+    overflow: visible;
 }
 .left-text {
   text-align: left;

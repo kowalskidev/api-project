@@ -1,6 +1,5 @@
 <div id="gallery-container">
     <div class="left-text">
-        <p><%= activeTag %></p>
         <h2>Detected tags from your image</h2>
         <div id="tags">
             <% tags.forEach(tag => { %>
@@ -17,42 +16,50 @@
 </div>
 <script>
     var count = 1
+    var scrolled = false
     $(window).scroll(function (e) {
         if (
-            $(window).scrollTop() + $(window).height() ==
-            $(document).height()
+            !scrolled &&
+            $(window).scrollTop() == $(document).height() - $(window).height()
         ) {
-            count += 1
-            console.log('<%= activeTag %>')
-            e.preventDefault()
-            e.stopPropagation()
-            if (count <= 4) {
-                const getImages = () => {
-                    $.ajax({
-                        method: 'GET',
-                        url: `/galleryLoad/<%= activeTag %>/${count}`,
-                        success: function (data) {
-                            if (!data) {
-                                $('#photos').append('<p>You reached end!</p>')
+            if (!scrolled) {
+                scrolled = true
+                count += 1
+                console.log(count)
+                if (count <= 4) {
+                    const getImages = () => {
+                        $.ajax({
+                            method: 'GET',
+                            url: `/galleryLoad/${count}`,
+                            success: function (data) {
+                                if (!data) {
+                                    $('#gallery-container').append(
+                                        '<p>You reached end!</p>'
+                                    )
+                                }
                             }
-                        }
-                    }).done((res) => {
-                        const images = res.images
-                        if (images) {
-                            images.forEach((image) => {
-                                $('#photos').append(
-                                    `<img class="gallery-image" src="${image.thumb}" />`
+                        }).done((res) => {
+                            const images = res.images
+                            if (images) {
+                                images.forEach((image) => {
+                                    $('#photos').append(
+                                        `<img class="gallery-image" src="${image.thumb}" />`
+                                    )
+                                })
+                            } else {
+                                $('#gallery-container').append(
+                                    '<p>You reached end!</p>'
                                 )
-                            })
-                        } else {
-                            $('#photos').append('<p>You reached end!</p>')
-                        }
-                    })
+                            }
+                        })
+                    }
+                    getImages()
+                } else {
+                    $('#gallery-container').append('<p>You reached end!</p>')
                 }
-                // setTimeout(getImages, 1000)
-                // getImages()
-            } else {
-                $('#photos').append('<p>You reached end!</p>')
+                setTimeout(() => {
+                    scrolled = false
+                }, 500)
             }
         }
     })
