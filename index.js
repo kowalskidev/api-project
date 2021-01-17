@@ -94,8 +94,8 @@ app.get('/analyzeImage/:filename', (req, res) => {
         try {
             const response = await got.post(url_tags, {
                 body: formData,
-                username: process.env.Wit_API_Key,
-                password: process.env.Wit_API_Secret
+                username: process.env.Imagga_API_Key,
+                password: process.env.Imagga_API_Secret
             })
             if (response.body) {
                 const data = JSON.parse(response.body)
@@ -190,8 +190,8 @@ app.get('/analyzeColors/:filename', (req, res) => {
         try {
             const response = await got.post(url_colors, {
                 body: formData,
-                username: process.env.Wit_API_Key,
-                password: process.env.Wit_API_Secret
+                username: process.env.Imagga_API_Key,
+                password: process.env.Imagga_API_Secret
             })
 
             if (response.body) {

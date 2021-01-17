@@ -350,7 +350,7 @@ input#file {
 }
 .gallery-image:hover {
     transform: scale(1.2);
-    transition: all 0.5s;
+    transition: all 0.2s;
     cursor: pointer;
     overflow: visible;
 }
