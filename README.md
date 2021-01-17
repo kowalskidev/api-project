@@ -98,7 +98,7 @@ A picture app to find similar images from Unsplash. Upload the image you want to
 
 * <img src="https://imagga.com/static/images/logo_white.svg" alt="imagga" width="20%" align="left"/>
 
-* <svg width="32" height="32" class="uXxc6" version="1.1" viewBox="0 0 32 32" aria-labelledby="view-homepage" aria-hidden="false"><title id="view-homepage">View homepage</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg>
+* <img src="https://unsplash-assets.imgix.net/marketing/press-logotype.svg?auto=format&fit=crop&q=60" alt="imagga" align="left"/>
 * [express.js]((https://expressjs.com/))
 
 
