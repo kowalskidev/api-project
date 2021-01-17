@@ -19,6 +19,7 @@ app.use(bodyParser.json())
 app.set('view engine', 'ejs')
 
 var tags = []
+var activeTag = ''
 const PORT = process.env.PORT || 3000
 const directory = 'public/img/uploads'
 
@@ -114,7 +115,7 @@ app.get('/analyzeImage/:filename', (req, res) => {
 })
 
 app.get('/gallery/:tag', (req, res) => {
-    console.log('called')
+    activeTag = req.params.tag
     const unsplash_url = `https://api.unsplash.com/search/photos?client_id=${process.env.Unsplash_API_Key}&per_page=50&query=`
 
     ;(async () => {
@@ -131,7 +132,6 @@ app.get('/gallery/:tag', (req, res) => {
                     }
                 })
                 res.render('gallery', {
-                    activeTag: req.params.tag,
                     tags: tags,
                     images: images
                 })
@@ -145,13 +145,11 @@ app.get('/gallery/:tag', (req, res) => {
     })()
 })
 
-app.get('/galleryLoad/:tag/:page', (req, res) => {
-    console.log(req.params.page, req.params.tag)
+app.get('/galleryLoad/:page', (req, res) => {
     const unsplash_url = `https://api.unsplash.com/search/photos?client_id=${process.env.Unsplash_API_Key}&page=${req.params.page}&per_page=50&query=`
-
     ;(async () => {
         try {
-            const response = await got(`${unsplash_url + req.params.tag}`)
+            const response = await got(`${unsplash_url + activeTag}`)
             if (response.body) {
                 const responseJSON = JSON.parse(response.body)
                 const data = responseJSON.results
