@@ -1,57 +1,55 @@
-<!-- <%- include("partials/header.ejs") %> -->
 <div class="imageUploaded">
-    <img
-        src="/img/uploads/<%= filename%>"
-        alt="<%= filename%>"
-        class="uploaded-image"
-    />
+  <img
+    src="/img/uploads/<%= filename%>"
+    alt="<%= filename%>"
+    class="uploaded-image"
+  />
 
-    <div class="btns-in-images">
-        <button id="btn_similar_image" class="btn-default">
-            Get Similar Images
-        </button>
-        <button id="btn_colors" class="btn-default">Get Image Colors</button>
-    </div>
+  <div class="btns-in-images">
+    <button id="btn_similar_image" class="btn-default">
+      Get Similar Images
+    </button>
+    <button id="btn_colors" class="btn-default">Get Image Colors</button>
+  </div>
 </div>
 <script>
-    $('#btn_similar_image').on('click', (e) => {
-        $('html, body').animate({ scrollTop: 0 }, 'slow')
-        e.preventDefault()
-        $.ajax({
-            method: 'GET',
-            url: '/analyzeImage/<%= filename%>',
-            beforeSend: () => {
-                $('.loader-wrapper').fadeIn('fast')
-            },
-            success: function (data) {
-                $('.loader-wrapper').fadeOut('slow')
-                if (!data) {
-                    $('#content').html('Opps! Something went wrong :/')
-                }
-            }
-        }).done((res) => {
-            $('#content').html(res)
-        })
-    })
+  $('#btn_similar_image').on('click', (e) => {
+    $('html, body').animate({ scrollTop: 0 }, 'slow');
+    e.preventDefault();
+    $.ajax({
+      method: 'GET',
+      url: '/analyzeImage/<%= filename%>',
+      beforeSend: () => {
+        $('.loader-wrapper').fadeIn('fast');
+      },
+      success: function (data) {
+        $('.loader-wrapper').fadeOut('slow');
+        if (!data) {
+          $('#content').html('Opps! Something went wrong :/');
+        }
+      },
+    }).done((res) => {
+      $('#content').html(res);
+    });
+  });
 
-    $('#btn_colors').on('click', (e) => {
-        $('html, body').animate({ scrollTop: 0 }, 'slow')
-        e.preventDefault()
-        $.ajax({
-            method: 'GET',
-            url: '/analyzeColors/<%= filename%>',
-            beforeSend: () => {
-                $('.loader-wrapper').fadeIn('fast')
-            },
-            success: function (data) {
-                $('.loader-wrapper').fadeOut('slow')
-                if (!data) {
-                    $('#content').html('Opps! Something went wrong :/')
-                }
-            }
-        }).done((res) => {
-            $('#content').html(res)
-        })
-    })
+  $('#btn_colors').on('click', (e) => {
+    $('html, body').animate({ scrollTop: 0 }, 'slow');
+    e.preventDefault();
+    $.ajax({
+      method: 'GET',
+      url: '/analyzeColors/<%= filename%>',
+      beforeSend: () => {
+        $('.loader-wrapper').fadeIn('fast');
+      },
+      success: function (data) {
+        $('.loader-wrapper').fadeOut('slow');
+        if (!data) {
+          $('#content').html('Opps! Something went wrong :/');
+        }
+      },
+    }).done((res) => {
+      $('#content').html(res);
+    });
+  });
 </script>
-<!-- <%- include("partials/footer.ejs") %> -->
