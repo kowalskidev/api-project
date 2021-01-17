@@ -118,6 +118,7 @@
                         //Show HTML
                         $('#content').html(data)
                         $('#uploadForm').addClass('hide')
+                        $('#aboutInfo').addClass('hide')
                         // form.classList.add(
                         //   data == true ? 'is-success' : 'is-error'
                         // );

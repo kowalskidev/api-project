@@ -47,7 +47,7 @@
     <a href="https://github.com/kowalskidev/api-project"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/kowalskidev/api-project">View Demo</a>
+    <a href="https://pickture.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/kowalskidev/api-project/issues">Report Bug</a>
     ·
